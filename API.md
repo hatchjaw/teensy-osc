@@ -239,11 +239,11 @@ OSCMessage msg("/a/0");
 msg.match("/a"); // ->returns 2
 ```
 
-### `bool dispatch(const char * pattern, void (*callback)(OSCMessage &), int offset = 0)`
+### `bool dispatch(const char * pattern, std::function<void(OSCMessage &)> callback, int offset = 0)`
 
 Invoke the given callback if the address if a full match with the pattern (after the offset). The message is passed into the callback function. Returns true if the pattern was a match and the callback function was invoked. 
 
-### `bool route(const char * pattern, void (*callback)(OSCMessage &, int), int offset = 0)`
+### `bool route(const char * pattern, std::function<void(OSCMessage &, int)> callback, int offset = 0)`
 
 Invoke the given callback if the address if a match with the pattern (after the offset). The OSCMessage and the address offset is passed into the callback function. Returns true if the pattern was a match and the callback function was invoked. 
 
@@ -327,7 +327,7 @@ bundle.getOSCMessage("/b");//returns the second OSCMessage in the bundle
 
 ## Routing
 
-### `bool dispatch(const char * pattern, void (*callback)(OSCMessage&), int offset = 0)`
+### `bool dispatch(const char * pattern, std::function<void(OSCMessage&)> callback, int offset = 0)`
 
 Invoke the callback function with all messages in the bundle which match the given pattern after the offset. 
 
@@ -337,7 +337,7 @@ bundle.add("/b/0");
 bundle.dispatch("/0", dispatchZero, 2);
 ```
 
-### `bool route(const char * pattern, void (*callback)(OSCMessage &, int), int offset = 0)`
+### `bool route(const char * pattern, std::function<void(OSCMessage &, int)> callback, int offset = 0)`
 
 Invoke the callback with all the OSCMessages in the bundle which match the given pattern. `route` allows for partial matches. 
 

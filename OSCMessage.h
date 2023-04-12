@@ -28,6 +28,7 @@
 
 #include "OSCData.h"
 #include <Print.h>
+#include <functional>
 
 
 class OSCMessage
@@ -248,18 +249,18 @@ public:
 	int getString(int, char *);
 	//check that it won't overflow the passed buffer's size with a third argument
 	int getString(int, char *, int);
-	//offset and size can be defined in order to only query a part of the string 
+	//offset and size can be defined in order to only query a part of the string
 	int getString(int, char *, int, int, int);
 
 	//returns the number of unsigned int8's copied into the buffer
 	int getBlob(int, uint8_t *);
 	//check that it won't overflow the passed buffer's size with a third argument
 	int getBlob(int, uint8_t *, int);
-	//offset and size can be defined in order to only query a part of the blob's content 
+	//offset and size can be defined in order to only query a part of the blob's content
 	int getBlob(int, uint8_t *, int, int, int);
 
 
-	// returns the length of blob 
+	// returns the length of blob
   	uint32_t getBlobLength(int position);
 
 	//returns the number of bytes of the data at that position
@@ -302,12 +303,12 @@ public:
 	int match( const char * pattern, int = 0);
 
 	//calls the function with the message as the arg if it was a full match
-	bool dispatch(const char * pattern, void (*callback)(OSCMessage &), int = 0);
+	bool dispatch(const char * pattern, std::function<void(OSCMessage &)> callback, int = 0);
 
 	//like dispatch, but allows for partial matches
 	//the address match offset is sent as an argument to the callback
 	//also room for an option address offset to allow for multiple nested routes
-	bool route(const char * pattern, void (*callback)(OSCMessage &, int), int = 0);
+	bool route(const char * pattern, std::function<void(OSCMessage &, int)> callback, int = 0);
 
 
 
