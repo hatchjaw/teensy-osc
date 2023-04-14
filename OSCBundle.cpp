@@ -60,6 +60,7 @@ OSCBundle& OSCBundle::empty(){
     messages = NULL;
     clearIncomingBuffer();
     numMessages = 0;
+    decodeState = STANDBY;
     return *this;
 }
 
